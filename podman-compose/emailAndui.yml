@@ -1,0 +1,23 @@
+version: "1.0"
+services:
+  kratos-selfservice-ui-node:
+    image: oryd/kratos-selfservice-ui-node:v0.8.0-alpha.3
+    environment:
+      - KRATOS_PUBLIC_URL=http://kratos:4433/
+      - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
+      # - KRATOS_BROWSER_URL=http://127.0.0.1:9090/proxy/kratos/
+    networks:
+      - intranet
+    ports:
+      - "4455:3000"
+    restart: on-failure
+
+  mailslurper:
+    image: oryd/mailslurper:latest-smtps
+    ports:
+      - "4436:4436"
+      - "4437:4437"
+    networks:
+      - intranet
+networks:
+  intranet:
